@@ -1,0 +1,11 @@
+Feature,Correlation_Coefficient
+Age_at_enrollment,0.254
+Debtor,0.229
+Gender,0.204
+Application_mode,0.198
+Marital_status,0.094
+Curricular_units_2nd_sem_without_evaluations,0.080
+Mothers_qualification,0.065
+Curricular_units_1st_sem_without_evaluations,0.054
+Previous_qualification,0.049
+Inflation_rate,0.028
