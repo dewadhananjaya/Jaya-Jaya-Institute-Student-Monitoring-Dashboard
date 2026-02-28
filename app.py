@@ -17,7 +17,6 @@ st.set_page_config(
 # ===================================
 @st.cache_resource
 def load_resources():
-
     required_files = ["best_model.pkl", "scaler.pkl", "encoder.pkl", "data/data_fix.csv"]
 
     for file in required_files:
@@ -30,7 +29,6 @@ def load_resources():
 
     df_sample = pd.read_csv("data/data_fix.csv")
 
-    # Ensure target column is not included as a feature
     if "Status" in df_sample.columns:
         df_sample = df_sample.drop(columns=["Status"])
 
@@ -42,16 +40,16 @@ def load_resources():
 try:
     model, scaler, encoder, feature_columns = load_resources()
 except Exception as e:
-    st.error(f"Failed to load files: {e}")
+    st.error(f"Failed to load model/data files: {e}")
     st.stop()
 
 # ===================================
-# UI
+# UI - HEADER
 # ===================================
 st.title("🎓 Student Academic Status Predictor")
 st.markdown(
     "This application uses Machine Learning to predict whether a student will "
-    "**Dropout**, remain **Enrolled**, or **Graduate**."
+    "**Dropout** or **Graduate**."
 )
 st.divider()
 
@@ -88,7 +86,7 @@ def get_user_inputs(columns):
 user_data = get_user_inputs(feature_columns)
 
 # ===================================
-# LAYOUT
+# MAIN LAYOUT
 # ===================================
 col_input, col_space, col_result = st.columns([2, 0.2, 1.5])
 
@@ -97,59 +95,56 @@ with col_input:
     st.dataframe(
         user_data.T.rename(columns={0: "Value"}),
         height=450,
-        width="stretch"   
+        width="stretch"
     )
 
 with col_result:
     st.subheader("Prediction Result")
 
-    if st.button("🚀 Check Student Status", width="stretch"):  
+    if st.button("🚀 Check Student Status", width="stretch"):
 
         try:
-            # Ensure column order matches training
+            # Pastikan urutan kolom sesuai
             input_ordered = user_data[feature_columns]
 
             # Scaling
-            scaled_input = scaler.transform(input_ordered)
+            scaled_array = scaler.transform(input_ordered)
 
-            # Prediction
+            # Kembalikan jadi DataFrame supaya tidak warning
+            scaled_input = pd.DataFrame(
+                scaled_array,
+                columns=feature_columns
+            )
+
             prediction = model.predict(scaled_input)
 
-            # Decode target label
+            # Decode label
             if hasattr(encoder, "inverse_transform"):
                 label = encoder.inverse_transform(prediction)[0]
             else:
-                label = prediction[0]
+                mapping = {0: "Dropout", 1: "Graduate"}
+                label = mapping.get(prediction[0], prediction[0])
 
             st.divider()
 
-            # ===================================
-            # DISPLAY RESULT
-            # ===================================
             if label == "Graduate":
                 st.success(f"### RESULT: {label}")
-                st.info("The student is predicted to have good academic performance.")
+                st.info("The student is predicted to complete their studies successfully.")
                 st.balloons()
-
-            elif label == "Enrolled":
-                st.warning(f"### RESULT: {label}")
-                st.info("The student is still actively enrolled.")
-
             else:
                 st.error(f"### RESULT: {label}")
-                st.info("The student is at high risk of dropping out.")
+                st.info("The student is at high risk of dropping out. Early intervention is recommended.")
 
             # ===================================
-            # DISPLAY CONFIDENCE
+            # PROBABILITY SECTION
             # ===================================
             if hasattr(model, "predict_proba"):
-
                 probs = model.predict_proba(scaled_input)[0]
 
                 if hasattr(encoder, "classes_"):
                     classes = encoder.classes_
                 else:
-                    classes = model.classes_
+                    classes = ["Dropout", "Graduate"]
 
                 max_prob = np.max(probs) * 100
 
@@ -161,15 +156,15 @@ with col_result:
                 }).sort_values("Confidence (%)", ascending=False)
 
                 st.write("### 📊 Model Confidence Details")
-                st.dataframe(prob_df, width="stretch")   
+                st.dataframe(prob_df, width="stretch")
 
                 st.bar_chart(
                     prob_df.set_index("Status"),
-                    width="stretch"   
+                    width="stretch"
                 )
 
         except Exception as e:
-            st.error(f"Prediction error: {e}")
+            st.error(f"An error occurred during prediction: {e}")
 
 st.divider()
-st.caption("Academic Status Prediction Dashboard v1.0")
+st.caption("Academic Status Prediction Dashboard v1.0 | Powered by Streamlit")
