@@ -8,7 +8,13 @@ To address this issue, Jaya Jaya Institute seeks to identify students at risk of
 
 ## Business Problems
 
-Jaya Jaya Institute faces the problem of high student dropout rates, which can damage the reputation and performance of the institution. The main issue is the lack of a system capable of identifying students at risk of dropping out at an early stage. Therefore, data analysis and monitoring dashboards are needed to help the institution detect dropout risks earlier, provide appropriate guidance, and support data-driven decision making to reduce dropout rates.
+- What is the total number of enrolled students, and what is their graduation rate?
+
+- How do demographic characteristics, such as gender and age at enrollment, affect the proportion of students who successfully graduate or drop out at Jaya Jaya Institute?
+
+- To what extent do scholarship status and timely tuition payment serve as distinguishing indicators in maintaining student retention rates?
+
+- Which factors have the most significant correlation in predicting the risk of student dropout from an early stage?
 
 ## Project Scope
 
