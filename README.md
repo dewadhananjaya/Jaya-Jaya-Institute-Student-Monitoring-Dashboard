@@ -2,7 +2,7 @@
 
 ## Bussiness Understanding
 
-Jaya Jaya Institute, a higher education institution established in 2000, is well known for the strong reputation of its graduates. However, the institution faces a serious challenge in the form of a high student dropout rate.
+Jaya Jaya Institute, a higher education institution established in 2000, is well known for the strong reputation of its graduates. However, the institution faces a serious challenge in the form of a high student drop out rate.
 
 To address this issue, Jaya Jaya Institute seeks to identify students at risk of dropping out at an early stage, allowing for targeted interventions such as specialized guidance. Therefore, an analysis of student performance data is required, which will then be developed into an dashboard that serves as a monitoring tool and supports decision-making for the institution.
 
@@ -14,7 +14,7 @@ To address this issue, Jaya Jaya Institute seeks to identify students at risk of
 
 - To what extent do scholarship status and timely tuition payment serve as distinguishing indicators in maintaining student retention rates?
 
-- Which factors have the most significant correlation in predicting the risk of student dropout from an early stage?
+- Which factors demonstrate the strongest predictive power in identifying students at high risk of dropping out during the early stages of their academic program?
 
 ## Project Scope
 
@@ -28,9 +28,9 @@ To address this issue, Jaya Jaya Institute seeks to identify students at risk of
 
 - **Evaluation:** Testing model performance and identifying the most influential factors.
 
-- **Visualization (Dashboard):** Developing a student monitoring dashboard with Looker Studio to track academic performance and dropout risk in real time. The project also integrates a Streamlit app, allowing users to upload new data and view predictions with dynamic visualizations.
+- **Visualization (Dashboard):** Developing a student monitoring dashboard with Looker Studio to track academic performance and drop out risk in real time. The project also integrates a Streamlit app, allowing users to upload new data and view predictions with dynamic visualizations.
   
-- **Conclusion and Recommended Action Items:** Summarizing the overall findings of the analysis, including identifying the most significant factors influencing student dropout and selecting the best-performing predictive model, as well as providing strategic recommendations for intervention programs.
+- **Conclusion and Recommended Action Items:** Summarizing the final insights by identifying the most significant features influencing drop out prediction and selecting the most effective predictive model. This stage also involves formulating data-driven strategic interventions to address the identified drop out risks.
 
 ## Preparation
 
@@ -98,16 +98,18 @@ streamlit run app.py
 
 ## Conclusion
 
-This project successfully identified the key factors influencing student dropout risk at Jaya Jaya Institute. Correlation analysis revealed ten major factors most strongly associated with the likelihood of students dropping out. These correlations illustrate both the strength and direction of the relationship between each variable and student status (dropout). Variables with higher correlation values have a more significant impact on dropout risk.
+- The feature `Curricular_units_2nd_sem_approved` has the highest importance (about 0.12). This means that passing classes at the end of the first year is the biggest sign of whether a student will stay.
 
-Based on the results, the factors include: **Age at enrollment**, **Debtor**, **Gender**, **Application mode**, **Marital status**, **Curricular units without evaluations (semester 1 & 2)**, **Mother’s qualification**, **Previous qualification**, and **Inflation rate**. For instance, students who are older at the time of enrollment or those with debtor status tend to be at higher risk of dropping out. Meanwhile, academic factors such as the number of curricular units without evaluations also show a strong relationship with study success.
+- Features like `Tuition_fees_up_to_date` and `Scholarship_holder` show that students who struggle to pay or lose their scholarships are at a much higher risk of drop out.
 
-From the evaluation of multiple models, the **Ensemble Voting Classifier** emerged as the most robust and stable performer, achieving the highest accuracy (91.6%) and the best ROC-AUC score (0.958), which highlights its strong ability to discriminate between classes. Both **XGBoost** and **Random Forest** delivered competitive results with accuracies around 91% and ROC-AUC scores above 0.95, though their recall for the Dropout class was slightly lower. In comparison, **SVM** remained solid but lagged behind with an accuracy of 89.8% and a ROC-AUC of 0.94. Overall, **Ensemble Voting Classifier** stands out as the primary choice for the monitoring system, with **XGBoost** serving as a strong baseline benchmark and **Random Forest** offering a more interpretable alternative.
+- Other factors like `Gender`, `Age_at_enrollment`, and being `Displaced`. While these factors are not as strong as grades, they are still important. They help the institute identify students who might struggle to adapt or who need extra support in a new environment.
+
+From the evaluation of multiple models, the Ensemble Voting Classifier is the best-performing model for this monitoring system, achieving a top accuracy of 91.6% and an outstanding ROC-AUC score of 0.958. By combining the strengths of multiple algorithms, it provides the most robust and stable predictions, particularly in accurately distinguishing between students who will stay and those at risk of dropping out. While XGBoost and Random Forest are strong contenders, the Ensemble Voting Classifier balance of precision and recall makes it the primary choice for effective early intervention.
 
 ## Recommended Action Items
 
-Based on the findings, Jaya Jaya Institute should apply targeted actions that focus on the main factors influencing student dropout. Students who enroll at an older age should receive personal academic guidance and flexible learning options to support their needs. Financial support programs should be improved, especially for students with debtor status, by providing better scholarship options, payment installment plans, and early financial monitoring to prevent dropouts caused by financial problems.
+- Since `Curricular_units_2nd_sem_approved` is the most critical factor, the institute should identify struggling students early. If a student fails many classes in their first semester, they should be required to join a tutoring or mentoring program immediately. This helps them stay on track and prevents them from losing the momentum needed to finish their first year successfully.
 
-The institute should also provide inclusive and gender-sensitive support services, and adjust retention strategies based on students’ application mode and marital status. Early academic monitoring is very important for students who have many curricular units without evaluations, as this may show low participation or academic difficulties that require quick support such as tutoring or mentoring. In addition, mentoring and academic bridging programs should be offered to students whose parental education background or previous qualifications may affect their academic preparation.
+- Because `Tuition_fees_up_to_date` is a major factor, the finance office should work closely with counselors. When a student stops paying, the institute should check if they are having money problems. For those who lose their scholarship `(Scholarship_holder)`, the institute could offer emergency grants or part-time campus jobs so they don't have to drop out due to costs.
 
-Finally, the institution should consider external economic factors such as inflation when creating financial policies and should regularly retrain and evaluate the predictive model to maintain long-term accuracy and effectiveness in reducing student dropout rates.
+- The data shows that a student’s age `(Age_at_enrollment)` and whether they moved from another city `(Displaced)` affect their risk. The institute should create special orientation programs or support groups for older students and those living away from home. These students often face more stress, so providing them with a community or affordable housing can help them feel more comfortable and avoid a drop out.
