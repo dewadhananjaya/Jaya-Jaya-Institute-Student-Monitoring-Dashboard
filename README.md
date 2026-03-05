@@ -98,7 +98,7 @@ streamlit run app.py
 
 ## Conclusion
 
-- The feature `Curricular_units_2nd_sem_approved` has the highest importance (about 0.12). This means that passing classes at the end of the first year is the biggest sign of whether a student will stay.
+- The feature `Curricular_units_2nd_sem_approved` has the highest importance (about 0.12). This means that failing to pass classes at the end of the first year is the strongest sign that a student will dropout.
 
 - Features like `Tuition_fees_up_to_date` and `Scholarship_holder` show that students who struggle to pay or lose their scholarships are at a much higher risk of drop out.
 
@@ -112,4 +112,4 @@ From the evaluation of multiple models, the Ensemble Voting Classifier is the be
 
 - Because `Tuition_fees_up_to_date` is a major factor, the finance office should work closely with counselors. When a student stops paying, the institute should check if they are having money problems. For those who lose their scholarship `(Scholarship_holder)`, the institute could offer emergency grants or part-time campus jobs so they don't have to drop out due to costs.
 
-- The data shows that a student’s age `(Age_at_enrollment)` and whether they moved from another city `(Displaced)` affect their risk. The institute should create special orientation programs or support groups for older students and those living away from home. These students often face more stress, so providing them with a community or affordable housing can help them feel more comfortable and avoid a drop out.
+- The data shows that a student’s `Gender`, age `(Age_at_enrollment)`, and whether they moved from another city `(Displaced)` affect their drop out risk. The institute should create special orientation programs or support groups for older students, different gender groups, and those living away from home. These students often face more stress, so providing them with a community or dormitory facilities can help them feel more comfortable and avoid a drop out.
